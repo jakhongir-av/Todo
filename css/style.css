@@ -276,4 +276,20 @@ main {
 .task .actions .delete {
 	color: crimson;
 }
+
+.logOutBtn {
+	margin-left: 92%;
+	margin-top: 20px;
+	width: 80px;
+	border-radius: 2rem;
+	padding: 10px;
+	color: #FFF;
+	background-color: black;
+	transition: all 0.3s ease-in;
+}
+
+.logOutBtn:hover {
+	color: #000000;
+	background-color: #FFF;
+}
 /* End styling of main page */
