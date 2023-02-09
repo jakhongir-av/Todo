@@ -12,11 +12,12 @@ signUpFormEl.addEventListener("submit",(evt)=>{
         username: emailInputEl.value,
         password: passwordInputEl.value,
         token: null,
-    }
+    };
+
     let bodyObj = {
         username: emailInputEl.value,
         password: passwordInputEl.value,
-    }
+    };
 
     fetch("https://todo-for-n92.cyclic.app/user/register",{
         method: 'POST',
@@ -24,15 +25,19 @@ signUpFormEl.addEventListener("submit",(evt)=>{
             'Content-Type':'application/json'
         },
         body: JSON.stringify(bodyObj)
-    }).then(res => res.json())
+    })
+    .then(res => res.json())
+
     .then(data =>{
         console.log(data);
-        localStorage.setItem("token", JSON.stringify(data.token));
-        window.location.replace("index.html");
+        user.token = data.token;
+        localStorage.setItem("documets", JSON.stringify(user));
+
     }).catch(error=> console.log(error))
 });
 
-  
+
+
 
 
 
