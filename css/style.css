@@ -25,6 +25,7 @@ body{
 .center h1{
   text-align: center;
   padding: 20px 0;
+  color: #000000;
   border-bottom: 1px solid silver;
 }
 .center form{
@@ -111,9 +112,19 @@ input[type="submit"]:hover{
 .signup_link a:hover{
   text-decoration: underline;
 }
+.transfer_wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.submit__btn {
+	margin-left: 30%;
+	border: 1px solid #000000;
+	border-radius: 1.5rem;
+	padding: 10px 40px 10px 40px;
+}
 
-
-/* Style of main page */
+/** Style of main page */
 :root {
 	--dark: #374151;
 	--darker: #1F2937;

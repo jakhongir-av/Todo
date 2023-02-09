@@ -8,7 +8,7 @@
   <title>Sign up</title>
 </head>
 <body>
-    <div class="center">
+    <!-- <div class="center">
       <h1>Login</h1>
       <form id="signUpForm">
         <div class="txt_field">
@@ -23,7 +23,29 @@
         </div>
         <button type="submit">submit</button>
         <div class="signup_link">
-          Allready registered? <a href="#">Sign in</a>
+          Allready registered? <button class="transferToLogin"><a href="#">Sign in</a></button>
+        </div>
+      </form>
+    </div> -->
+
+    <div class="container center">
+      <h1>Sign up</h1>
+      <form id="signUpForm">
+       <div class="txt_field">
+        <input type="text" name="email" id="emailInput" required>
+        <span></span>
+        <label>email</label>
+       </div>
+       <div class="txt_field">
+        <input type="password" name="password" id="passwordInput" required>
+        <span></span>
+        <label>password</label>
+       </div>
+        <button class="submit__btn" type="submit">submit</button>
+        <div class="signup_link">
+          <div class="transfer_wrapper">
+            <span>Already registered?</span> <a href="./signin.html">Sign in</a>
+          </div>
         </div>
       </form>
     </div>

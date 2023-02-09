@@ -8,25 +8,27 @@
   <title>Sign in</title>
 </head>
 <body>
-    <div class="center">
-      <h1>Sign in</h1>
-      <form method="post">
-        <div class="txt_field">
-          <input type="text" required>
-          <span></span>
-          <label>email</label>
+  <div class="container center">
+    <h1>Sign up</h1>
+    <form id="signUpForm">
+     <div class="txt_field">
+      <input type="text" name="email" id="emailInput" required>
+      <span></span>
+      <label>email</label>
+     </div>
+     <div class="txt_field">
+      <input type="password" name="password" id="passwordInput" required>
+      <span></span>
+      <label>password</label>
+     </div>
+      <button class="submit__btn" type="submit">submit</button>
+      <div class="signup_link">
+        <div class="transfer_wrapper">
+          <span>Already have an account?</span> <a href="./signup.html">Sign up</a>
         </div>
-        <div class="txt_field">
-          <input type="password" required>
-          <span></span>
-          <label>Password</label>
-        </div>
-        <input type="submit" value="Login">
-        <div class="signup_link">
-          Still don't registered? <a href="./signUp.html">Sign up</a>
-        </div>
-      </form>
-    </div>
-  <script src="./js/main.js"></script>
+      </div>
+    </form>
+  </div>
+  <script src="./js/auth.js"></script>
 </body>
 </html>
