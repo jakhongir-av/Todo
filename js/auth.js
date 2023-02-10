@@ -29,14 +29,12 @@ signUpFormEl.addEventListener("submit",(evt)=>{
     .then(res => res.json())
 
     .then(data =>{
-        console.log(data);
-        user.token = data.token;
-        localStorage.setItem("documets", JSON.stringify(user));
-
+        console.log(data.token);
+        localStorage.setItem("token", JSON.stringify(data.token));
+        window.location.replace("index.html");
+        
     }).catch(error=> console.log(error))
 });
-
-
 
 
 
