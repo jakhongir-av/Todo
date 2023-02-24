@@ -23,7 +23,7 @@ btn.addEventListener("click", () => {
 //* Submit TODO
 
 const todos = [];
-const todo = [];
+let todo = [];
 
 
 async function render() {
@@ -45,14 +45,16 @@ async function render() {
                             type="checkbox"
                             role="switch"
                             id="flexSwitchCheckChecked"
-                            ${todo[i].completed ? "checked" : ''}>
+                            onchange="toggleComplete('${todo[i]._id}')"
+                            ${todo[i].completed && "checked"}>
                     </div>
                     <button class="edit">Edit</button>
                     <button class="delete">Delete</button>
                 </div>
             </div>`; 
+
         tasksEl.innerHTML = tasksEl.innerHTML + template;
-    }
+    };
 };
 
 
@@ -78,7 +80,7 @@ newTaskFormEl.addEventListener("submit", (event) => {
         .then((res) => {
             todo.push(res.todo);
             render();
-            console.log(todo);        
+            console.log(res);        
         })
         .catch((err) => console.log(err));
 
@@ -86,6 +88,26 @@ newTaskFormEl.addEventListener("submit", (event) => {
 
 });
 
-//* Delete TODO
-
-
+function toggleComplete(smth) {
+                fetch(`https://todo-for-n92.cyclic.app/todos?id=${smth}`, {
+                    method: "PUT",
+                    headers: {
+                            "x-access-token": localStorage.getItem("token")
+                    },
+                }) 
+                .then((res) => res.json())
+                .then((res) =>{
+                    console.log(res);
+                    todo = todo.map((id) => {
+                        if(id._id === res.todo._id) {
+                            todo[id] = res.todo;  
+                        }else {
+                            todo[id] = id
+                        };
+                        return todo[id];
+                    });
+                    console.log(todo);
+                    render();
+                })
+                .catch((err) => console.log(err));
+};
