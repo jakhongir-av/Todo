@@ -25,7 +25,8 @@ signUpFormEl.addEventListener("submit", (evt) => {
         alert("The user is already exists!");
       } else {
         localStorage.setItem("token", JSON.stringify(data.token));
-        window.location.replace("index.html");
+        window.location.replace("signin.html");
+        alert("The account is successfuly created, please Sign In")
       }
     })
     .catch((error) => console.log(error));

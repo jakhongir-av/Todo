@@ -6,8 +6,27 @@ const newTaskInputEl = document.querySelector("#new-task-input");
 const editBtnEl = document.querySelector(".edit");
 const deleteBtnEl = document.querySelector(".delete");
 
+let todo = [];
+
+//* Getting all todos
 if (!token) {
   window.location.replace("signup.html");
+} else if (token) {
+  fetch("https://todo-for-n92.cyclic.app/todos/all", {
+    method: "GET",
+    headers: {
+      "x-access-token": token
+    }
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log(res);
+      todo = res.allTodos || [];
+      render();
+    })
+    .catch((error) => console.log(res));
+} else {
+  null;
 }
 
 btn.addEventListener("click", () => {
@@ -17,9 +36,7 @@ btn.addEventListener("click", () => {
 
 //* Submit TODO
 
-const todos = [];
-let todo = [];
-
+//* Render function
 function render() {
   tasksEl.innerHTML = "";
   for (let i = 0; i < todo.length; i++) {
@@ -44,14 +61,16 @@ function render() {
                             onchange="toggleComplete('${todo[i]._id}')"
                             ${todo[i].completed && "checked"}>
                     </div>
-                    <button class="edit">Edit</button>
+                    <button class="edit" onclick="editTodo('${
+                      todo[i]._id
+                    }')">Edit</button>
                     <button class="delete" onclick="deleteTodo('${
                       todo[i]._id
                     }')">Delete</button>
                 </div>
             </div>`;
 
-    tasksEl.innerHTML = tasksEl.innerHTML + template;
+    tasksEl.innerHTML = template + tasksEl.innerHTML;
   }
 }
 
@@ -85,7 +104,7 @@ function toggleComplete(smth) {
   fetch(`https://todo-for-n92.cyclic.app/todos?id=${smth}`, {
     method: "PUT",
     headers: {
-      "x-access-token": localStorage.getItem("token")
+      "x-access-token": token
     }
   })
     .then((res) => res.json())
@@ -105,7 +124,6 @@ function toggleComplete(smth) {
 }
 
 //* Delete todo
-
 function deleteTodo(id) {
   const isAccepted = confirm("Are you sure to delete??");
   if (isAccepted) {
@@ -133,4 +151,20 @@ function deleteTodo(id) {
       })
       .catch((error) => console.log(error));
   }
+}
+
+//* Editing todos
+
+function editTodo(id) {
+  fetch(`https://todo-for-n92.cyclic.app/todos/${id}`, {
+    method: "PUT",
+    headers: {
+      "x-access-token": token
+    }
+  })
+  .then((res) => res.json())
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((error) => console.log(error))
 }
