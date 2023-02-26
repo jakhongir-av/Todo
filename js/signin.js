@@ -10,7 +10,7 @@ signUpFormEl.addEventListener("submit", (evt) => {
     let bodyObj = {
         username: emailInputEl.value,
         password: passwordInputEl.value,
-    }
+    };
     console.log(bodyObj);
 
     fetch("https://todo-for-n92.cyclic.app/user/login", {
@@ -23,8 +23,15 @@ signUpFormEl.addEventListener("submit", (evt) => {
     .then((res) => res.json())
     .then((res) => {
         console.log(res);
-        localStorage.setItem("token", res.token);
-        window.location.replace("/index.html");
+        if(res.token) {
+            window.location.replace("/index.html");
+            localStorage.setItem("token", res.token);
+        }else if(res.error === null){
+            alert("Wrong email or password!!");
+        }
     })
     .catch((err) => console.log(err));
 });
+
+
+

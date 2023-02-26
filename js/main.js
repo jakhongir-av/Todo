@@ -1,10 +1,18 @@
 const token = localStorage.getItem("token");
 const btn = document.querySelector(".logOutBtn");
 const tasksEl = document.querySelector("#tasks");
+
 const newTaskFormEl = document.querySelector("#new-task-form");
 const newTaskInputEl = document.querySelector("#new-task-input");
+
 const editBtnEl = document.querySelector(".edit");
 const deleteBtnEl = document.querySelector(".delete");
+
+const editEl = document.getElementById("#editForm");
+
+console.log(editEl);
+const editBtnSubmitEl = document.querySelector(".editBtnSubmit");
+const editInputEl = document.querySelector(".editInput");
 
 let todo = [];
 
@@ -20,7 +28,6 @@ if (!token) {
   })
     .then((res) => res.json())
     .then((res) => {
-      console.log(res);
       todo = res.allTodos || [];
       render();
     })
@@ -61,19 +68,27 @@ function render() {
                             onchange="toggleComplete('${todo[i]._id}')"
                             ${todo[i].completed && "checked"}>
                     </div>
-                    <button class="edit" onclick="editTodo('${
-                      todo[i]._id
-                    }')">Edit</button>
+                    <button class="edit" onclick="editTodo()">Edit</button>
                     <button class="delete" onclick="deleteTodo('${
                       todo[i]._id
                     }')">Delete</button>
                 </div>
+            </div>
+            <div id="editForm">
+              <form class="input-group mb-3 editEl" >
+                <input type="text" value="${
+                todo[i].task
+                }" class="form-control bg-dark text-light editInput" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary bg-danger text-light " type="button">Cancel</button>
+                <button class="btn btn-outline-secondary bg-success text-light editBtnSubmit" type="submit" id="button-addon2">Submit</button>
+              </form>
             </div>`;
 
     tasksEl.innerHTML = template + tasksEl.innerHTML;
   }
 }
 
+//* Add new todo
 newTaskFormEl.addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -82,7 +97,7 @@ newTaskFormEl.addEventListener("submit", (event) => {
   fetch("https://todo-for-n92.cyclic.app/todos/add", {
     method: "POST",
     headers: {
-      "x-access-token": localStorage.getItem("token"),
+      "x-access-token": token,
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
@@ -156,15 +171,19 @@ function deleteTodo(id) {
 //* Editing todos
 
 function editTodo(id) {
-  fetch(`https://todo-for-n92.cyclic.app/todos/${id}`, {
-    method: "PUT",
-    headers: {
-      "x-access-token": token
-    }
-  })
-  .then((res) => res.json())
-  .then((res) => {
-    console.log(res);
-  })
-  .catch((error) => console.log(error))
+  // editBtnSubmitEl.addEventListener("submit", (value) => {
+  //   let task = editInputEl.value;
+  //   fetch(`https://todo-for-n92.cyclic.app/todos?id=${id}`, {
+  //     method: "PUT",
+  //     headers: {
+  //       "x-access-token": token,
+  //     },
+  //     body: JSON.stringify(task),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((error) => console.log(error));
+  // });
 }

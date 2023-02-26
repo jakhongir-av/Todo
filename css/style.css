@@ -10,7 +10,6 @@ body{
   padding: 0;
   /* background: linear-gradient(120deg,#2980b9, #8e44ad */
   height: 100vh;
-  overflow: hidden;
 }
 .center{
   position: absolute;
@@ -232,6 +231,7 @@ main {
 }
 
 #tasks .task {
+	position: relative;
 	display: flex;
 	justify-content: space-between;
 	background-color: var(--darkest);
@@ -304,3 +304,9 @@ main {
 	background-color: #FFF;
 }
 /* End styling of main page */
+
+/*! Edit style */
+
+.editEl {
+	top: -65px;
+} 
