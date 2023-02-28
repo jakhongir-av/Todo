@@ -231,7 +231,6 @@ main {
 }
 
 #tasks .task {
-	position: relative;
 	display: flex;
 	justify-content: space-between;
 	background-color: var(--darkest);
@@ -307,6 +306,3 @@ main {
 
 /*! Edit style */
 
-.editEl {
-	top: -65px;
-} 
