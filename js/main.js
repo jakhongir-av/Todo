@@ -184,10 +184,10 @@ function editTodo(event, id) {
   for (let i = 0; i < todo.length; i++) {
     if (todo[i]._id == id) {
       console.log("UWU")
-      fetch(`https://todo-for-n92.cyclic.app/todos?id=${id}`, {
+      fetch(`https:/todo-for-n92.cyclic.app/todos/edit?id=${id}`, {
         method: "PUT",
         headers: {
-          "x-access-token": token
+          "x-access-token": token,
         },
         body: JSON.stringify(task)
       })
