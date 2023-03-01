@@ -42,15 +42,17 @@ function render() {
   tasksEl.innerHTML = "";
   for (let i = 0; i < todo.length; i++) {
     const template = todo[i].editing
-      ? `
-      <form class="input-group mb-3 editingProccess" onsubmit="editTodo('${todo[i]._id}', event)">
-        <input type="text" value="${todo[i].task}" class="form-control bg-dark text-light" placeholder="Edit your todo" aria-label="Recipient's username with two button addons">
+      ? 
+      `
+      <form class="input-group mb-3 editingProccess" onsubmit="editTodo(event, '${todo[i]._id}')">
+        <input type="text" value="${todo[i].task}" class="form-control bg-dark text-light editInput" placeholder="Edit your todo" aria-label="Recipient's username with two button addons">
         <button class="btn btn-outline-secondary bg-danger text-light" onclick="toggleEditing('${todo[i]._id}')" type="button">Cancel</button>
         <button class="btn btn-outline-secondary bg-success text-light " type="submit">Submit</button> 
       </form>
       `
-      : `
-  <div class="task ${todo[i].completed ? "bg-success text-light" : "bg-dark"}">
+      : 
+      `
+      <div class="task ${todo[i].completed ? "bg-success text-light" : "bg-dark"}">
         <div class="content">
           <input 
               type="text" 
@@ -68,14 +70,10 @@ function render() {
               onchange="toggleComplete('${todo[i]._id}')"
               ${todo[i].completed && "checked"}>
         </div>
-      <button class="edit" onclick="toggleEditing('${
-        todo[i]._id
-      }')">Edit</button>
-      <button class="delete" onclick="deleteTodo('${
-        todo[i]._id
-      }')">Delete</button>
+        <button class="edit" onclick="toggleEditing('${todo[i]._id}')">Edit</button>
+        <button class="delete" onclick="deleteTodo('${todo[i]._id}')">Delete</button>
+        </div>
       </div>
-  </div>
   `;
 
     tasksEl.innerHTML = template + tasksEl.innerHTML;
@@ -86,7 +84,7 @@ function render() {
 newTaskFormEl.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  let task = newTaskInputEl.value;
+  const task = newTaskInputEl.value;
 
   fetch("https://todo-for-n92.cyclic.app/todos/add", {
     method: "POST",
@@ -177,16 +175,15 @@ function toggleEditing(id) {
 }
 
 //* Submit editing todos
-function editTodo(id, event) {
-  const editBtnSubmitEl = document.querySelector(".editBtnSubmit");
-  const editElAll = document.querySelectorAll(".editingProccess");
+function editTodo(event, id) {
+  event.preventDefault();
   const editInputEl = document.querySelector(".editInput");
-
+  
+  const task = editInputEl.value;
 
   for (let i = 0; i < todo.length; i++) {
-    const task = editInputEl.value;
-
-    if (todo[i]._id === id) {
+    if (todo[i]._id == id) {
+      console.log("UWU")
       fetch(`https://todo-for-n92.cyclic.app/todos?id=${id}`, {
         method: "PUT",
         headers: {
@@ -201,4 +198,4 @@ function editTodo(id, event) {
         .catch((error) => console.log(error));
     }
   }
-}
+};
